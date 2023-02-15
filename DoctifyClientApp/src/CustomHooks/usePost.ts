@@ -9,7 +9,7 @@ const usePost = () => {
     url: string,
     method: string,
     description: string,
-    files: FormData
+    files: File
   ) => {
     const body = {
       description: description,

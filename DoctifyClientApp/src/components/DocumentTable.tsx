@@ -16,25 +16,39 @@ import useStyles from '../styles/styles';
 import { DocumentTableProps } from '../models/types';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
-import { dateConvert, timeConvert, openWithPDFViewer } from "../helpers/helpers"
+import { dateConvert, timeConvert } from "../helpers/helpers"
 import useHttp from '../CustomHooks/useHttp';
 import DocumentViewer from '../Pages/DocumentViewer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { base64toBlob } from '../helpers/helpers';
+import { useRef } from 'react';
+import { useAppDispatch } from '../store/hook';
+import { addFiles } from '../features/docsSlice';
 
 
 const DocumentTable: React.FC<DocumentTableProps> = ({ className, searchTerm }) => {
-  const { classes, cx } = useStyles({})
   const [loading, data, removeData] = useHttp("https://localhost:7214/api/Docs");
-  const [showViewer, setShowViewer] = useState(false);
+  const dispatch = useAppDispatch()
+  const { classes, cx } = useStyles({})
+  const navigate = useNavigate()
 
   const deleteFile = (id: number) => {
     const userPrompt = confirm("Are you sure you want to Delete File");
     if (userPrompt) {
-      console.log(id);
       removeData(id);
     }
   }
 
+  const sendBase64 = (base64: string) => {
+    const blob = base64toBlob(base64);
+    const address = URL.createObjectURL(blob);
+    dispatch(addFiles(address))
+    const url = '/documentViewer'
+    window.open(url, '_blank')
+    navigate(url)
+  }
+
+  console.log(data)
 
   return (
     <TableContainer component={Paper}>
@@ -83,12 +97,11 @@ const DocumentTable: React.FC<DocumentTableProps> = ({ className, searchTerm }) 
                     </span>
                     <span title='Open With'>
                       <Link to="/documentViewer" target="_blank">
-                        <OpenWithIcon className={cx(classes.hover, className)} color='disabled'
-                          fontSize='small' />
+                        <OpenWithIcon onClick={() => sendBase64(file.binaryString)} className={cx(classes.hover, className)}
+                          color='disabled' fontSize='small' />
                       </Link>
                     </span>
                   </TableCell>
-                  {showViewer && <DocumentViewer pdfFile={file.filePath} />}
                 </TableRow>
               </>
             ))}

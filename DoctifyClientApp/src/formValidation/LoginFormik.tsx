@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Formik } from 'formik'
 import React, { useState } from 'react'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { setToken } from '../features/authSlice'
 import Login from '../models/login'
 import LoginForm from "../Pages/Login"

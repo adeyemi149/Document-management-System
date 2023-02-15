@@ -10,30 +10,31 @@ import { CircularProgress } from '@mui/material';
 const Login: (props: FormikProps<LoginFormModel>) => JSX.Element =
 	({ handleSubmit, errors, isSubmitting, touched }) => {
 		const userToken = useAppSelector(state => state.auth.token)
+
 		return (
-	   <>
-		<Form>
-			{userToken && <Navigate to="/" />}
-		  <h3>Login</h3>
-		  <form onSubmit={handleSubmit}>
-			<div className=''>
-			<Field name="email" id='email' type="email"
-			placeholder='user@email.com' className={'form-control my-2' + (errors.email && touched.email ? "border border-danger" : "")} />
-			{errors.email && touched.email && <span className='text-error'>{errors.email}</span>}
-		  </div>
-		  <div className=''>
-			<Field name="password" id='password' type="password"
-			placeholder='Enter password' className={'form-control my-2' + (errors.password && touched.password ? "border border-danger" : "")} />
-			{errors.password && touched.password && <span className='text-error'>{errors.password}</span>}
-			</div>
-			<button disabled={isSubmitting} type='submit' className="btn btn-primary rounded-pill my-3">
-				{isSubmitting ? <CircularProgress size={20} color='info' /> : "Login"}</button>
-		   </form>
-		</Form>
-		   <ToastContainer />
-		</>
-  	)
-}
+			<>
+				{userToken && <Navigate to="/" />}
+				<Form>
+					<h3>Login</h3>
+					<form onSubmit={handleSubmit}>
+						<div className=''>
+							<Field name="email" id='email' type="email"
+								placeholder='user@email.com' className={'form-control my-2' + (errors.email && touched.email ? "border border-danger" : "")} />
+							{errors.email && touched.email && <span className='text-error'>{errors.email}</span>}
+						</div>
+						<div className=''>
+							<Field name="password" id='password' type="password"
+								placeholder='Enter password' className={'form-control my-2' + (errors.password && touched.password ? "border border-danger" : "")} />
+							{errors.password && touched.password && <span className='text-error'>{errors.password}</span>}
+						</div>
+						<button disabled={isSubmitting} type='submit' className="btn btn-primary rounded-pill my-3">
+							{isSubmitting ? <CircularProgress size={20} color='info' /> : "Login"}</button>
+					</form>
+				</Form>
+				<ToastContainer />
+			</>
+		)
+	}
 
 export default Login
 

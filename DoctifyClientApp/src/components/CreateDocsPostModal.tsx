@@ -49,9 +49,9 @@ const CreateDocsPostModal: React.FC<PostalModalProps> = ({ showModal, handleClic
 		for (var i = 0; i < files.length; i++) {
 			var selectedFile = files[i];
 			if (selectedFile && allowedFile.includes(selectedFile.type)) {
-				const formData = new FormData();
-				formData.append('file', selectedFile)
-				sendPostRequest("https://localhost:7214/api/Docs", "POST", description, formData);
+				// const formData = new FormData();
+				// formData.append('file', selectedFile)
+				sendPostRequest("https://localhost:7214/api/Docs", "POST", description, selectedFile);
 
 			} else {
 				toast.error("Not a Valid File Format", {

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import Register from './Pages/Register'
 import styled from 'styled-components'
-import { BrowserRouter as Router, Routes, Route, RouterProvider } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Home from './Pages/Home'
 import RegisterFormik from './formValidation/RegisterFormik'
 import LoginFormik from './formValidation/LoginFormik'

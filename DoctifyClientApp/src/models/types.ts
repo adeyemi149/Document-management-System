@@ -1,6 +1,6 @@
 export type addFileType = {
-  files: getFileType[];
   loader: boolean;
+  base64File: string;
 };
 
 export type getFileType = {
@@ -8,6 +8,7 @@ export type getFileType = {
   description: string;
   filePath: string;
   timeStamp: Date;
+  binaryString: string;
 };
 
 export type PostalModalProps = {
@@ -26,5 +27,5 @@ export type SearchFieldProps = {
 };
 
 export type DocsViewerType = {
-  pdfFile: string;
+  binaryString: any;
 };
